@@ -50,20 +50,23 @@ def main():
             print("Error: Template file 'template.docx' not found")
             sys.exit(1)
     
-    # Copy template file to output file
-    shutil.copy(template_file, output_file)
+    # Create a new document from the template (instead of copying it)
+    doc = Document(template_file)
+    
+    # Clear ALL existing content in the document (including tables)
+    # First clear tables
+    for table in doc.tables[:]:
+        tbl = table._element
+        tbl.getparent().remove(tbl)
+    
+    # Then clear paragraphs
+    for paragraph in doc.paragraphs[:]:
+        p = paragraph._element
+        p.getparent().remove(p)
     
     # Read markdown content
     with open(md_file, 'r', encoding='utf-8') as f:
         md_content = f.read()
-    
-    # Create document from output file
-    doc = Document(output_file)
-    
-    # Clear existing content in the document
-    for paragraph in doc.paragraphs[:]:
-        p = paragraph._element
-        p.getparent().remove(p)
     
     # Process markdown content and add to document
     process_markdown(md_content, doc, md_dir)
