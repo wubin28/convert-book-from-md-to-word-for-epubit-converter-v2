@@ -208,14 +208,22 @@ def process_markdown(md_content, doc, md_dir):
                 header_cells = table_rows[0].strip('|').split('|')
                 for col_idx, cell_text in enumerate(header_cells):
                     if col_idx < columns:
-                        table.cell(0, col_idx).text = cell_text.strip()
+                        cell = table.cell(0, col_idx)
+                        cell.text = cell_text.strip()
+                        # Apply style to each paragraph in the cell
+                        for paragraph in cell.paragraphs:
+                            paragraph.style = '表格单元格'
                 
                 # Process data rows (skip header and separator rows)
                 for row_idx in range(2, len(table_rows)):
                     cells = table_rows[row_idx].strip('|').split('|')
                     for col_idx, cell_text in enumerate(cells):
                         if col_idx < columns and (row_idx-1) < len(table.rows):
-                            table.cell(row_idx-1, col_idx).text = cell_text.strip()
+                            cell = table.cell(row_idx-1, col_idx)
+                            cell.text = cell_text.strip()
+                            # Apply style to each paragraph in the cell
+                            for paragraph in cell.paragraphs:
+                                paragraph.style = '表格单元格'
             
             # Add paragraph after table
             doc.add_paragraph('')
