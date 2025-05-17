@@ -239,11 +239,7 @@ def process_markdown(md_content, doc, md_dir):
             image_title = image_match.group(1)
             image_path = image_match.group(2)
             
-            # Add paragraph for image title
-            p = doc.add_paragraph(image_title, style='图题')
-            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            
-            # Add the image
+            # Add the image first
             full_image_path = os.path.join(md_dir, image_path)
             if os.path.exists(full_image_path):
                 try:
@@ -264,10 +260,17 @@ def process_markdown(md_content, doc, md_dir):
                     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
                     run = p.add_run()
                     run.add_picture(full_image_path, width=Inches(width_inches))
+                    
+                    # Add paragraph for image title below the image
+                    p = doc.add_paragraph(image_title, style='图题')
+                    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 except Exception as e:
                     print(f"Warning: Error adding image {image_path}: {str(e)}")
             else:
                 print(f"Warning: Image file not found: {image_path}")
+                # Still add the title even if image not found
+                p = doc.add_paragraph(image_title, style='图题')
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             
             i += 1
             continue
