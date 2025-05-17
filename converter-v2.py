@@ -225,8 +225,7 @@ def process_markdown(md_content, doc, md_dir):
                             for paragraph in cell.paragraphs:
                                 paragraph.style = '表格单元格'
             
-            # Add paragraph after table
-            doc.add_paragraph('')
+            # Don't add empty paragraph after table
         
         # Handle tips (避坑指南)
         if '【避坑指南】' in line:
@@ -298,9 +297,7 @@ def process_markdown(md_content, doc, md_dir):
         # Handle normal paragraphs
         if line.strip():
             p = doc.add_paragraph(line, style='Normal')
-        else:
-            # Empty line
-            doc.add_paragraph('')
+        # Skip empty lines instead of adding empty paragraphs
         
         i += 1
 
