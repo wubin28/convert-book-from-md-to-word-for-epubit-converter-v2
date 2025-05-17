@@ -42,13 +42,12 @@ def main():
     else:
         output_file = os.path.join(md_dir, f"{base_name}-to-converted.docx")
     
-    # Get the template docx file path (should be in the same directory as the md file)
-    template_file = os.path.join(md_dir, 'template.docx')
+    # Get the template docx file path from the project root directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    template_file = os.path.join(script_dir, 'template.docx')
     if not os.path.exists(template_file):
-        template_file = 'template.docx'  # Try current directory
-        if not os.path.exists(template_file):
-            print("Error: Template file 'template.docx' not found")
-            sys.exit(1)
+        print("Error: Template file 'template.docx' not found in the project root directory")
+        sys.exit(1)
     
     # Create a new document from the template (instead of copying it)
     doc = Document(template_file)
