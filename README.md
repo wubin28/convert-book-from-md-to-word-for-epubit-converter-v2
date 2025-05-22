@@ -2,20 +2,29 @@
 
 ## 使用方法
 
-```
-python3 converter-v2.py <markdown_file>
-```
+```shell
+# Create a virtual environment in the current directory
+python3 -m venv venv
 
-例如：
-```
+# Activate the virtual environment
+source venv/bin/activate
+
+# Install the packages in the virtual environment
+pip install -r requirements.txt
+
+# Now you can run your script
 python3 converter-v2.py lab/template-from.md
-```
 
-这将：
-1. 读取指定的Markdown文件
-2. 将模板文件`template.docx`复制为`template-to-converted.docx`
-3. 将Markdown内容转换为具有适当样式的Word文档
-4. 将结果保存为`template-to-converted.docx`
+# 这将：
+# 1. 读取指定的Markdown文件
+# 2. 将模板文件`template.docx`复制为`template-to-converted.docx`
+# 3. 将Markdown内容转换为具有适当样式的Word文档
+# 4. 将结果保存为`template-to-converted.docx`
+
+
+# Deactivate the virtual environment when done
+deactivate
+```
 
 ## 样式映射
 
@@ -92,33 +101,8 @@ converter-v2的开发提示词：
 
 新的版本converter-v2.py增加了对图片的支持，并修复了许多格式问题。用于将特定格式的Markdown文件转换为带有特定样式的Word文档。
 
-## 运行环境
-
-运行此转换器需要以下Python包：
-- python-docx（用于Word文档操作）
-- pillow（可选，用于图像处理）
-
-安装依赖：
-```shell
-# Create a virtual environment in the current directory
-python3 -m venv venv
-
-# Activate the virtual environment
-source venv/bin/activate
-
-# Install the packages in the virtual environment
-pip install -r requirements.txt
-
-# Now you can run your script
-python3 converter-v2.py lab/template-from.md
-
-# Deactivate the virtual environment when done
-deactivate
-```
 
 ## 微调格式
 
-- 代码清单“```markdown”标题格式微调：打开to-word-template.docx，用格式刷将代码清单的标题格式应用到转换后的DOCX文件中相应的代码块标题上。
-- 代码清单“```markdown”代码体格式微调：选择“代码无行号”样式
-- "```shell"格式微调：选择“代码无行号”样式
+- 【提示】格式微调：打开template-to-converted.docx，用格式刷将【提示】的标题格式应用到转换后的DOCX文件中相应的【提示】标题上。
 
