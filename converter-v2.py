@@ -76,6 +76,9 @@ def main():
 
 def process_markdown(md_content, doc, md_dir):
     """Process markdown content and convert to docx with appropriate styles"""
+    # Preprocess image paths: convert (attachment:xxx:图x-xx.png) to (图x-xx.png)
+    md_content = re.sub(r'\(attachment:[^:]+:图', r'(图', md_content)
+    
     lines = md_content.splitlines()
     i = 0
     
