@@ -293,22 +293,65 @@ def process_markdown(md_content, doc, md_dir):
             for aside_line in aside_content:
                 # Skip empty lines and emoji markers
                 if aside_line.strip() and not aside_line.strip() == '💡':
+                    # Check for inline code in the aside line
+                    parts = re.split(r'(`{1,2}.*?`{1,2})', aside_line.strip())
+                    
                     if aside_line.startswith('【避坑指南】'):
                         # Use 强提示标签 for the header line
-                        p = doc.add_paragraph(aside_line.strip(), style='强提示标签')
+                        p = doc.add_paragraph()
+                        for part in parts:
+                            if part.startswith('`') and part.endswith('`'):
+                                run = p.add_run(part.strip('`'))
+                                run.style = '行内代码'
+                            else:
+                                if part.strip():
+                                    run = p.add_run(part)
+                        p.style = '强提示标签'
                     elif '【避坑指南】' in aside_line:
                         # Use 强提示 for content within 避坑指南 aside
-                        p = doc.add_paragraph(aside_line.strip(), style='强提示')
+                        p = doc.add_paragraph()
+                        for part in parts:
+                            if part.startswith('`') and part.endswith('`'):
+                                run = p.add_run(part.strip('`'))
+                                run.style = '行内代码'
+                            else:
+                                if part.strip():
+                                    run = p.add_run(part)
+                        p.style = '强提示'
                     elif aside_line.startswith('【提示】'):
                         # Use 提示标签 for the header line
-                        p = doc.add_paragraph(aside_line.strip(), style='提示标签')
+                        p = doc.add_paragraph()
+                        for part in parts:
+                            if part.startswith('`') and part.endswith('`'):
+                                run = p.add_run(part.strip('`'))
+                                run.style = '行内代码'
+                            else:
+                                if part.strip():
+                                    run = p.add_run(part)
+                        p.style = '提示标签'
                     elif '【提示】' in aside_line:
                         # Use 提示 for content within 提示 aside
-                        p = doc.add_paragraph(aside_line.strip(), style='提示')
+                        p = doc.add_paragraph()
+                        for part in parts:
+                            if part.startswith('`') and part.endswith('`'):
+                                run = p.add_run(part.strip('`'))
+                                run.style = '行内代码'
+                            else:
+                                if part.strip():
+                                    run = p.add_run(part)
+                        p.style = '提示'
                     else:
                         # For lines within an aside that don't have a marker, use the style of the last marker seen
                         style = '强提示' if any('【避坑指南】' in line for line in aside_content) else '提示'
-                        p = doc.add_paragraph(aside_line.strip(), style=style)
+                        p = doc.add_paragraph()
+                        for part in parts:
+                            if part.startswith('`') and part.endswith('`'):
+                                run = p.add_run(part.strip('`'))
+                                run.style = '行内代码'
+                            else:
+                                if part.strip():
+                                    run = p.add_run(part)
+                        p.style = style
             continue
             
         # Handle normal paragraphs
