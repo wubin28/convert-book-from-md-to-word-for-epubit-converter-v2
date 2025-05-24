@@ -313,7 +313,24 @@ def process_markdown(md_content, doc, md_dir):
             
         # Handle normal paragraphs
         if line.strip():
-            p = doc.add_paragraph(line, style='Normal')
+            # Check for inline code
+            parts = re.split(r'(`{1,2}.*?`{1,2})', line)
+            if len(parts) > 1:  # Contains inline code
+                p = doc.add_paragraph()
+                for part in parts:
+                    if part.startswith('`') and part.endswith('`'):
+                        # Remove the backticks and apply inline code style
+                        code_text = part.strip('`')
+                        run = p.add_run(code_text)
+                        run.style = '行内代码'
+                    else:
+                        # Regular text
+                        if part.strip():
+                            run = p.add_run(part)
+                p.style = 'Normal'
+            else:
+                # No inline code, handle as normal paragraph
+                p = doc.add_paragraph(line, style='Normal')
         # Skip empty lines instead of adding empty paragraphs
         
         i += 1
