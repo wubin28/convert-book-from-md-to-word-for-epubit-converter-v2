@@ -226,9 +226,14 @@ def process_markdown(md_content, doc, md_dir):
             
             # Don't add empty paragraph after table
         
-        # Handle tips (避坑指南)
-        if '【避坑指南】' in line:
+        # Handle tips (避坑指南 and 提示)
+        if line.startswith('【避坑指南】'):
             p = doc.add_paragraph(line, style='强提示标签')
+            i += 1
+            continue
+        
+        if line.startswith('【提示】'):
+            p = doc.add_paragraph(line, style='提示标签')
             i += 1
             continue
         
@@ -284,16 +289,26 @@ def process_markdown(md_content, doc, md_dir):
             if i < len(lines):
                 i += 1  # Skip the closing aside tag
                 
-            # Process aside content - all content within <aside> should use '强提示' style
+            # Process aside content based on the type of tip
             for aside_line in aside_content:
                 # Skip empty lines and emoji markers
                 if aside_line.strip() and not aside_line.strip() == '💡':
-                    if '【避坑指南】' in aside_line:
-                        # Keep using 强提示标签 for the header line
+                    if aside_line.startswith('【避坑指南】'):
+                        # Use 强提示标签 for the header line
                         p = doc.add_paragraph(aside_line.strip(), style='强提示标签')
-                    else:
-                        # Use 强提示 for other content within aside
+                    elif '【避坑指南】' in aside_line:
+                        # Use 强提示 for content within 避坑指南 aside
                         p = doc.add_paragraph(aside_line.strip(), style='强提示')
+                    elif aside_line.startswith('【提示】'):
+                        # Use 提示标签 for the header line
+                        p = doc.add_paragraph(aside_line.strip(), style='提示标签')
+                    elif '【提示】' in aside_line:
+                        # Use 提示 for content within 提示 aside
+                        p = doc.add_paragraph(aside_line.strip(), style='提示')
+                    else:
+                        # For lines within an aside that don't have a marker, use the style of the last marker seen
+                        style = '强提示' if any('【避坑指南】' in line for line in aside_content) else '提示'
+                        p = doc.add_paragraph(aside_line.strip(), style=style)
             continue
             
         # Handle normal paragraphs
