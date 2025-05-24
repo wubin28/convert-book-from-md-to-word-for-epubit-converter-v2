@@ -11,6 +11,8 @@ alwaysApply: false
 
 转换完成后，用Word打开template-to-converted.docx时，其内容和样式应与 #file:template.docx  完全一致。markdown文件中的图片也需要正确插入到templete-to-converted.docx中。要求 #file:template-from.md  中所有文字、插图和表格及其他内容和格式都必须以与 #file:template.docx  一致的样式进行转换，内容不得增减。以下是markdown标签与 #file:template.docx  的样式对应关系：
 
+在所有下述从markdown格式转为docx格式的代码逻辑运行之前，进行一个插图文件名转换预处理，即这个预处理逻辑只做一件事：扫描要转换的markdown文档，只要遇到像“(attachment:xxx:图x-xx.png)”，就将从“attachment“到“图”之前的内容删除，即转为“(图x-xx.png)”，比如将“(attachment:ec94c27f-923d-4ae8-886e-930bd7c3f8e6:图6-17.png)”转为“(图6-17.png)”。之后再执行所有下述其他转换逻辑。
+
 “#”对应“Heading 1“。
 
 一般正文对应“Normal”。
@@ -42,3 +44,5 @@ alwaysApply: false
 图片”[]“中的图片标题对应“图题“。
 
 以``包围的行内代码对应“行内代码”
+
+“<aside>”内的行内代码两侧的"`"符号在转换后的docx里都要去掉

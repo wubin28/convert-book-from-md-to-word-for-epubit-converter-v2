@@ -54,52 +54,7 @@ deactivate
 
 ## 历史开发记录
 
-converter-v2的开发提示词：
-
-```markdown
-#file:template-from.md #file:template.docx  是你需要阅读的两个文件。两者内容相同但格式不同。请你帮我开发一个名为converter-v2的Python程序，用于将 #file:template-from.md  转换成与 #file:template.docx  格式完全一致的新文件template-to-converted.docx。
-
-当运行"python3 converter-v2 [template-from.md](http://template-from.md/)"时，程序应：
-1）读取 #file:template-from.md  的内容；
-2）将 #file:template.docx  复制并重命名为template-to-converted.docx，然后根据markdown标签与 #file:template.docx  的样式对应关系（见后文），将内容写入template-to-converted.docx中。
-
-转换完成后，用Word打开template-to-converted.docx时，其内容和样式应与 #file:template.docx  完全一致。markdown文件中的图片也需要正确插入到templete-to-converted.docx中。要求 #file:template-from.md  中所有文字、插图和表格及其他内容和格式都必须以与 #file:template.docx  一致的样式进行转换，内容不得增减。以下是markdown标签与 #file:template.docx  的样式对应关系：
-
-“#”对应“Heading 1“。
-
-一般正文对应“Normal”。
-
-“##”对应“Heading 2”。
-
-“###”对应“Heading 3”。
-
-“```”对应“代码无行号”。
-
-以“代码清单”开头的行对应“超强提示标签”。
-
-“- ”对应“第1级无序列表”。
-
-以“表”开头的行对应“表题”。
-
-以“|”开头的表格内容对应“表格单元格”。
-
-以“【避坑指南】”开头的行对应“强提示标签”。
-
-以“【提示】”开头的行对应“提示标签”。
-
-以“【避坑指南】”开头的“<aside>”内的内容对应“强提示“。
-
-以“【提示】”开头的“<aside>”内的内容对应“提示“。
-
-以像“1. ”这样的数字开头的行对应“Heading 4”。
-
-图片”[]“中的图片标题对应“图题“。
-
-以``包围的行内代码对应“行内代码”
-
-“<aside>”内的行内代码两侧的"`"符号在转换后的docx里都要去掉
-```
-
+converter-v2的开发提示词：（见.cursor/rules/rule-convert-md-to-docx.mdc）
 
 最初的开发提示：
 
