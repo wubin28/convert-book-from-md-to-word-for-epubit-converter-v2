@@ -56,7 +56,7 @@ deactivate
 
 ## 历史开发记录
 
-converter-v2的开发提示词：（见.cursor/rules/rule-convert-md-to-docx.mdc）
+converter-v2的开发提示词：（见[.cursor/rules/rule-convert-md-to-docx.mdc](.cursor/rules/rule-convert-md-to-docx.mdc)）
 
 最初的开发提示：
 
