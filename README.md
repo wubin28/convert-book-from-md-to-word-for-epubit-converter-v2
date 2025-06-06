@@ -16,15 +16,17 @@ pip install -r requirements.txt
 python3 converter-v2.py lab/template-from.md
 
 # 这将：
-# 1. 读取指定的Markdown文件
+# 1. 读取指定的Markdown文件lab/template-from.md
 # 2. 将模板文件`template.docx`复制为`template-to-converted.docx`
 # 3. 将Markdown内容转换为具有适当样式的Word文档
-# 4. 将结果保存为`template-to-converted.docx`
+# 4. 将结果保存为`template-to-converted.docx`，之后可以用Word打开查看效果
 
 
 # Deactivate the virtual environment when done
 deactivate
 ```
+
+![f-01.png](f-01.png)
 
 ## 样式映射
 
