@@ -1,28 +1,31 @@
-# Markdown to Word Converter
+# 文档格式转换工具converter
+
+将Notion AI中的Markdown书稿转换为人民邮电出版社异步社区的“Word交稿模版”Word文档（docx格式）。
 
 ## 使用方法
 
+下载并安装[Trae国内版（免费使用）](https://www.trae.com.cn/)，以便在其内置终端中运行本项目下面的Python相关命令，实现文档格式的转换。
+
 ```shell
-# Create a virtual environment in the current directory
+
+# 在当前目录下创建本项目的Python虚拟环境，以便与个人计算机的操作系统下的Python环境隔离
 python3 -m venv venv
 
-# Activate the virtual environment
+# 激活虚拟环境
 source venv/bin/activate
 
-# Install the packages in the virtual environment
+# 在虚拟环境中安装本项目代码运行时需要的依赖包
 pip install -r requirements.txt
 
-# Now you can run your script
-python3 converter-v2.py lab/template-from.md
-
+# 运行本项目代码
 # 这将：
-# 1. 读取指定的Markdown文件lab/template-from.md
+# 1. 读取待转换的Markdown文件sample/ch06/ch06.md
 # 2. 将模板文件`template.docx`复制为`template-to-converted.docx`
 # 3. 将Markdown内容转换为具有适当样式的Word文档
-# 4. 将结果保存为`template-to-converted.docx`，之后可以用Word打开查看效果
+# 4. 将结果保存为`sample/ch06/ch06-to-converted.docx`，之后可以用Word打开查看效果
+python3 converter.py sample/ch06/ch06.md
 
-
-# Deactivate the virtual environment when done
+# 转换完后退出虚拟环境
 deactivate
 ```
 
@@ -50,28 +53,39 @@ deactivate
 
 ## 注意事项
 
-- Markdown文件中的图片应该在同一目录或子目录中
-- template.docx文件必须包含所有需要的样式
+- Markdown文件中的图片应该存放在与该文件相同的目录中
+- 若Markdown文件中包含Markdown格式的代码片段，且该代码片段内又嵌套了Markdown格式的代码片段，那么转换后的Word文档对于嵌套的代码片段转换格式不正确
+  - 解决方法：将嵌套的Markdown格式的代码片段转换为XML格式的代码片段，见下面的示例。
+
+将有嵌套的Markdown代码段：
+
+```plaintext
+  ```markdown
+    ```python
+    #!/usr/bin/env python3
+    ```
+  ```
+```
+
+改为：
+
+```markdown
+  <python>
+    #!/usr/bin/env python3
+  </python>
+```
+
+
+- 本项目根目录下的template.docx文件（即`模版-Word交稿模板-16开-小标题字号.docx`）必须包含所有需要的样式
 - 转换后的文档可能需要少量手动格式调整
+  - 转换后svg图在docx文件中缺失，需要手工插入
 
 ## 历史开发记录
 
-converter-v2的开发提示词：（见[.cursor/rules/rule-convert-md-to-docx.mdc](.cursor/rules/rule-convert-md-to-docx.mdc)）
+converter的开发提示词：（见[.cursor/rules/rule-convert-md-to-docx.mdc](.cursor/rules/rule-convert-md-to-docx.mdc)）
 
-最初的开发提示：
+最初的开发提示（只能完成80%的格式转换，故废弃）：
 
 ```markdown
 我上传了3个文件，其中 ch04-from.md 和 ch04-to-original.docx 是两个格式不同但内容相同的文件。我需要一个名为 converter 的 Python 程序来分析这两个文件的格式差异。当运行 "python3 converter ch04-from.md" 时，程序应执行以下操作：读取 ch04-from.md 的内容，复制 ch04-to-template.docx 文件并重命名为 ch04-to.docx，然后将 ch04-from.md 中的内容按照 ch04-to-original.docx 的格式写入 ch04-to.docx 中。转换完成后，用 Word 打开 ch04-to.docx 时应与 ch04-to-original.docx 的效果完全一致。由于没有上传 markdown 文件中的图片，转换后的 ch04-to.docx 可以不包含图片，但所有文字内容和格式必须与原文件保持一致，不能增减。如遇到"【避坑指南】"这样的特殊格式无法确定如何转换，请告知并尽力保留这些内容。
 ```
-
-新的版本converter-v2.py增加了对图片的支持，并修复了许多格式问题。用于将特定格式的Markdown文件转换为带有特定样式的Word文档。
-
-
-## 从Notion将Markdown格式文本复制到Markdown文件后微调格式
-
-- （无）
-
-## 运行完python格式转换程序后微调格式
-
-- 转换后svg图缺失，需要手工插入
-

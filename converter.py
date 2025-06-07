@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Converter-v2: Convert Markdown to Word document with specific styling
+converter: Convert Markdown to Word document with specific styling
 """
 
 import os
@@ -22,7 +22,7 @@ except ImportError:
 def main():
     """Main function to convert markdown to docx"""
     if len(sys.argv) != 2:
-        print("Usage: python3 converter-v2.py <markdown_file>")
+        print("Usage: python3 converter.py <markdown_file>")
         sys.exit(1)
     
     md_file = sys.argv[1]
