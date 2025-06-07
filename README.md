@@ -2,7 +2,49 @@
 
 将Notion AI中的Markdown书稿转换为人民邮电出版社异步社区的“Word交稿模版”Word文档（docx格式）。
 
-## 使用方法
+## 使用方法（适用Windows 11电脑）
+
+1. 安装IDE：下载并安装[Trae国内版（免费使用）](https://www.trae.com.cn/)，以便在其内置终端中运行后面的Python相关命令，实现文档格式的转换。
+
+2. 下载本项目：点击本页面右上方"克隆/下载"按钮，再点击"下载ZIP"，把本项目下载到本地计算机，并解压。
+
+3. 打开本项目：打开Trae国内版，在菜单中选择File -> Open Folder，选择本项目解压后的目录，打开本项目。
+
+4. 打开内置终端运行样例文件转换命令：在Trae的菜单中选择View -> Terminal，打开Trae内置的终端。然后点击Terminal右上方的“+”右侧的向下小箭头（“Launch Profile”按钮），选“Command Prompt，内置终端会出现cmd命令提示。然后执行下面的命令，实现sample目录下的样例文档格式的转换。
+
+```cmd
+# 在当前目录下创建本项目的Python虚拟环境，以便与个人计算机的操作系统下的Python环境隔离
+python -m venv venv
+
+# 激活虚拟环境
+venv\Scripts\activate
+
+# 在虚拟环境中安装本项目代码运行时需要的依赖包
+pip install -r requirements.txt
+
+# 运行本项目代码
+# 这将：
+# 1. 读取待转换的Markdown文件sample\ch06\ch06.md
+# 2. 将模板文件`template.docx`复制为`template-to-converted.docx`
+# 3. 将Markdown内容转换为具有适当样式的Word文档
+# 4. 将结果保存为`sample\ch06\ch06-to-converted.docx`，之后可以用Word打开查看效果
+python converter.py sample\ch06\ch06.md
+
+# 转换完后退出虚拟环境
+deactivate
+```
+
+![f-04.png](f-04.png)
+
+5. 转换自己的Markdown书稿：sample目录下的ch06.md只是个本项目为方便用户使用时参考的转换样例。如果你想转换自己的Markdown文档，可以在本项目根目录下创建自己的书的目录（比如"book"），然后在其中创建章节目录（比如"ch01"），并把该章的一个Markdown文档和插图复制到这个目录下。之后可以仿照上面的命令，将sample\ch06\ch06.md替换为自己的Markdown文档路径（比如book\ch01\ch01.md），进行转换。
+
+## 主要改动说明
+
+- `python3` 改为 `python`（Windows下通常使用python命令）
+- `source venv/bin/activate` 改为 `venv\Scripts\activate`（Windows下虚拟环境激活方式）
+- 路径分隔符保持使用正斜杠 `/`，因为Python和大多数命令行工具都能正确处理
+
+## 使用方法（适用mac电脑）
 
 1. 安装IDE：下载并安装[Trae国内版（免费使用）](https://www.trae.com.cn/)，以便在其内置终端中运行后面的Python相关命令，实现文档格式的转换。
 
