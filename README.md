@@ -38,7 +38,7 @@ deactivate
 
 5. 转换自己的Markdown书稿：sample目录下的ch06.md只是个本项目为方便用户使用时参考的转换样例。如果你想转换自己的Markdown文档，可以在本项目根目录下创建自己的书的目录（比如"book"），然后在其中创建章节目录（比如"ch01"），并把该章的一个Markdown文档和插图复制到这个目录下。之后可以仿照上面的命令，将sample\ch06\ch06.md替换为自己的Markdown文档路径（比如book\ch01\ch01.md），进行转换。
 
-## 主要改动说明
+### 主要改动说明
 
 - `python3` 改为 `python`（Windows下通常使用python命令）
 - `source venv/bin/activate` 改为 `venv\Scripts\activate`（Windows下虚拟环境激活方式）
